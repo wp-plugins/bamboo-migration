@@ -49,14 +49,14 @@
 			$bamboo_migrate_result = bamboo_migrate_exec();
 			if ( 'OK'==$bamboo_migrate_result ) {
 				// Setup the redirection to set the download flag
-		        $url = admin_url('tools.php?page=bamboo-migrate&download=true');
+		        $url = admin_url('tools.php?page=bamboo-migrate&bamboo_migrate_download=true');
 		        echo "<meta http-equiv=\"refresh\" content=\"1;$url\"/>";
 		    }
 
 		}
 
 		// If the download flag has been set send the sql file to the browser...
-		if( isset( $_GET["download"] ) ) {
+		if( isset( $_GET["bamboo_migrate_download"] ) ) {
 			$bamboo_migrate_result = 'OK';
 			add_action( 'admin_init', 'bamboo_migrate_download_file');
 		}
