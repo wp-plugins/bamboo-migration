@@ -23,10 +23,6 @@
 /**********************************************************************************************************************/
 
 	// Hook into init event
-	add_action( 'init' , 'bamboo_migrate_init' );
-
-/**********************************************************************************************************************/
-
 	function bamboo_migrate_init() {
 
 		global $bamboo_migrate_current_url, $bamboo_migrate_new_url, $bamboo_migrate_result;
@@ -49,19 +45,20 @@
 			$bamboo_migrate_result = bamboo_migrate_exec();
 			if ( 'OK'==$bamboo_migrate_result ) {
 				// Setup the redirection to set the download flag
-		        $url = admin_url('tools.php?page=bamboo-migrate&bamboo_migrate_download=true');
+		        $url = admin_url('tools.php?page=bamboo-migrate&download=true');
 		        echo "<meta http-equiv=\"refresh\" content=\"1;$url\"/>";
 		    }
 
 		}
 
 		// If the download flag has been set send the sql file to the browser...
-		if( isset( $_GET["bamboo_migrate_download"] ) ) {
+		if( isset( $_GET["download"] ) ) {
 			$bamboo_migrate_result = 'OK';
 			add_action( 'admin_init', 'bamboo_migrate_download_file');
 		}
 
 	}
+	add_action( 'init' , 'bamboo_migrate_init' );
 
 /**********************************************************************************************************************/
 
